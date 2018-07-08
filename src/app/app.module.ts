@@ -5,26 +5,62 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { WelcomePage } from "../pages/welcome/welcome";
+import { IonicStorageModule } from "@ionic/storage";
+import { LoginPage} from "../pages/login/login";
+import { LoginPageModule} from "../pages/login/login.module";
+import { LoginServiceProvider } from '../providers/login-service/login-service';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from "@angular/common/http";
+import { Api } from "../providers/api/api";
+import { LocalStorageService, SessionStorageService } from "ngx-webstorage";
+import { AuthServerProvider } from "../providers/auth/auth-jwt.service";
+import { Principal } from "../providers/auth/principal.service";
+import { AccountService } from "../providers/auth/account.service";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { AuthInterceptor } from "../providers/auth/auth-interceptor";
+
+export function createTranslateLoader( http: HttpClient ) {
+  return new TranslateHttpLoader( http, './assets/i18n/', '.json' );
+}
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    WelcomePage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
+    LoginPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    WelcomePage,
+    LoginPage
   ],
   providers: [
+    Api,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    Principal,
+    AccountService,
+    AuthServerProvider,
+    LocalStorageService,
+    SessionStorageService,
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    LoginServiceProvider
   ]
 })
 export class AppModule {}
