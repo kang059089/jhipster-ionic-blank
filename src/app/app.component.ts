@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from "../pages/login/login";
 import { WelcomePage } from "../pages/welcome/welcome";
 import { Storage } from '@ionic/storage';
+import {NativeServiceProvider} from "../providers/native-service/native-service";
 
 @Component({
   templateUrl: 'app.html'
@@ -13,10 +14,12 @@ export class MyApp {
   rootPage: any;
 
   constructor(
-    platform: Platform,
-    statusBar: StatusBar,
-    splashScreen: SplashScreen,
-    public storage: Storage) {
+    private platform: Platform,
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen,
+    private storage: Storage,
+    private nativeService: NativeServiceProvider,
+    private toastCtrl: ToastController) {
     this.storage.get('firstIn').then((result) => {
       if(result) {
         this.rootPage = LoginPage;
@@ -31,7 +34,18 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      this.assertNetwork();//检测网络
     });
+  }
+
+  assertNetwork() {
+    if (!this.nativeService.isConnecting()) {
+      this.toastCtrl.create({
+        message: '未检测到网络,请连接网络',
+        showCloseButton: true,
+        closeButtonText: '确定'
+      }).present();
+    }
   }
 }
 

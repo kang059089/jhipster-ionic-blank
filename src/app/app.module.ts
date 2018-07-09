@@ -19,6 +19,9 @@ import { AccountService } from "../providers/auth/account.service";
 import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { AuthInterceptor } from "../providers/auth/auth-interceptor";
+import { NativeServiceProvider } from '../providers/native-service/native-service';
+import { VersionServiceProvider } from '../providers/version-service/version-service';
+import { Network } from "@ionic-native/network";
 
 export function createTranslateLoader( http: HttpClient ) {
   return new TranslateHttpLoader( http, './assets/i18n/', '.json' );
@@ -60,7 +63,10 @@ export function createTranslateLoader( http: HttpClient ) {
     SessionStorageService,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    LoginServiceProvider
+    LoginServiceProvider,
+    NativeServiceProvider,
+    VersionServiceProvider,
+    Network
   ]
 })
 export class AppModule {}
