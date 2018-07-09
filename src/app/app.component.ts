@@ -5,7 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from "../pages/login/login";
 import { WelcomePage } from "../pages/welcome/welcome";
 import { Storage } from '@ionic/storage';
-import {NativeServiceProvider} from "../providers/native-service/native-service";
+import { NativeServiceProvider } from "../providers/native-service/native-service";
+import { VersionServiceProvider } from "../providers/version-service/version-service";
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +20,8 @@ export class MyApp {
     private splashScreen: SplashScreen,
     private storage: Storage,
     private nativeService: NativeServiceProvider,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private versionService: VersionServiceProvider) {
     this.storage.get('firstIn').then((result) => {
       if(result) {
         this.rootPage = LoginPage;
@@ -34,10 +36,15 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.assertNetwork();//检测网络
+      //检测网络
+      this.assertNetwork();
+
     });
   }
 
+  /**
+   * 检测网络连接情况
+   */
   assertNetwork() {
     if (!this.nativeService.isConnecting()) {
       this.toastCtrl.create({

@@ -22,6 +22,8 @@ import { AuthInterceptor } from "../providers/auth/auth-interceptor";
 import { NativeServiceProvider } from '../providers/native-service/native-service';
 import { VersionServiceProvider } from '../providers/version-service/version-service';
 import { Network } from "@ionic-native/network";
+import { AppVersion } from "@ionic-native/app-version";
+
 
 export function createTranslateLoader( http: HttpClient ) {
   return new TranslateHttpLoader( http, './assets/i18n/', '.json' );
@@ -66,7 +68,8 @@ export function createTranslateLoader( http: HttpClient ) {
     LoginServiceProvider,
     NativeServiceProvider,
     VersionServiceProvider,
-    Network
+    Network,
+    AppVersion
   ]
 })
 export class AppModule {}
