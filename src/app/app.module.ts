@@ -23,6 +23,12 @@ import { NativeServiceProvider } from '../providers/native-service/native-servic
 import { VersionServiceProvider } from '../providers/version-service/version-service';
 import { Network } from "@ionic-native/network";
 import { AppVersion } from "@ionic-native/app-version";
+import { InAppBrowser } from "@ionic-native/in-app-browser";
+import { FileOpener } from '@ionic-native/file-opener';
+import { Diagnostic } from "@ionic-native/diagnostic";
+import { File } from "@ionic-native/file";
+import { FileTransfer } from "@ionic-native/file-transfer";
+
 
 
 export function createTranslateLoader( http: HttpClient ) {
@@ -69,7 +75,12 @@ export function createTranslateLoader( http: HttpClient ) {
     NativeServiceProvider,
     VersionServiceProvider,
     Network,
-    AppVersion
+    AppVersion,
+    InAppBrowser,
+    Diagnostic,
+    File,
+    FileTransfer,
+    FileOpener
   ]
 })
 export class AppModule {}

@@ -1,0 +1,56 @@
+page-login {
+  .content-md {
+    background: url("../assets/imgs/login-backgroud.png");
+    background-size: cover;
+  }
+
+  .logo {
+    width:150px;
+    height: 100px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  .forget-password {
+    color: black;
+  }
+
+  .label-md {
+    margin: 13px 0px 13px 0;
+  }
+
+  .item-md {
+    margin-top: 3px;
+    padding-left: 10px;
+    border-radius: 0;
+    position: relative;
+    font-size: 1.7rem;
+    color: #000;
+    background: rgba(255, 255, 255, 0.4);
+    -webkit-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+    border: 1px solid rgba(255,255,255,.4);
+  }
+
+  .item-md ion-icon[item-left] + .item-inner, .item-md ion-icon[item-left] + .item-input, .item-md ion-icon[item-start] + .item-inner, .item-md ion-icon[item-start] + .item-input {
+    margin-left: 0px;
+  }
+
+  .input-wrapper {
+    border-left: 1px solid #FFFF;
+  }
+
+  .list-md {
+    margin: -1px 0 0px;
+  }
+
+  .grid {
+    padding: 0px;
+  }
+
+}

@@ -1,0 +1,63 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+  <ion-row style="padding-top: 5%;">
+    <ion-col></ion-col>
+    <ion-col class="logo">
+      <img style="width: 80px; height: 80px; border-radius: 50%;" src="./assets/imgs/logo.png">
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+  <ion-row style="padding-top: 15%;">
+    <form (ngSubmit)="login()">
+      <ion-list no-lines>
+
+        <ion-item>
+          <ion-icon name="md-username" item-start></ion-icon>
+          <ion-input type="string" [(ngModel)]="account.username" name="account.username"></ion-input>
+        </ion-item>&nbsp;
+
+        <ion-item>
+          <ion-icon name="md-password" item-start></ion-icon>
+          <ion-input type="password" [(ngModel)]="account.password" name="account.password"></ion-input>
+        </ion-item>
+
+        <ion-row align-items-center class="login-rember">
+          <ion-col col-8>
+            <a class="forget-password" full (click)="forgetPassword()">忘记密码?</a>
+          </ion-col>
+          <ion-label>记住我</ion-label>
+          <ion-toggle [(ngModel)]="account.rememberMe" name="account.rememberMe"></ion-toggle>
+        </ion-row>
+
+      </ion-list>
+    </form>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button color="primary" (click)="login()" full>登录</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button color="danger" (click)="signup()" full>注册</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-row>
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col col-6>
+      <p style="color: #f4f4f4; font-size: 12px; text-align: center;">第三方登录</p>
+      <div style="text-align: center;">
+        <ion-icon name="md-wechat" (click)="wechatLogin()"></ion-icon>&nbsp;&nbsp;
+        <ion-icon name="md-qq" (click)="qqLogin()"></ion-icon>&nbsp;&nbsp;
+        <ion-icon name="md-sinaweibo" (click)="sinaweiboLogin()"></ion-icon>
+      </div>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+</ion-content>

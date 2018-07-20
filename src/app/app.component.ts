@@ -6,7 +6,6 @@ import { LoginPage } from "../pages/login/login";
 import { WelcomePage } from "../pages/welcome/welcome";
 import { Storage } from '@ionic/storage';
 import { NativeServiceProvider } from "../providers/native-service/native-service";
-import { VersionServiceProvider } from "../providers/version-service/version-service";
 
 @Component({
   templateUrl: 'app.html'
@@ -20,8 +19,7 @@ export class MyApp {
     private splashScreen: SplashScreen,
     private storage: Storage,
     private nativeService: NativeServiceProvider,
-    private toastCtrl: ToastController,
-    private versionService: VersionServiceProvider) {
+    private toastCtrl: ToastController) {
     this.storage.get('firstIn').then((result) => {
       if(result) {
         this.rootPage = LoginPage;

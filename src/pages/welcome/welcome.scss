@@ -1,0 +1,30 @@
+page-welcome {
+  ion-slide {
+    background-color: #eeeeee;
+  }
+
+  .slide-zoom {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .slide-zoom img {
+    z-index: 0;
+    height: 100%;
+  }
+
+  .login-button {
+    width: 100%;
+    position: absolute;
+    top: 87%;
+  }
+
+  .button-small {
+    height: 2.8em;
+    font-size: 1.3rem;
+    padding: 0 4.0em;
+  }
+
+}
+
