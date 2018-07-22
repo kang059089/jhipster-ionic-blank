@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Rx';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { Api } from '../api/api';
 import { HttpClient } from '@angular/common/http';
+import { Secret } from "../secret";
 
 @Injectable()
 export class AuthServerProvider {
@@ -19,10 +20,12 @@ export class AuthServerProvider {
   login(credentials): Observable<any> {
 
     const data = {
-      username: credentials.username,
-      password: credentials.password,
+      username: Secret.Encrypt(credentials.username),
+      password: Secret.Encrypt(credentials.password),
       rememberMe: credentials.rememberMe
     };
+    console.log(Secret.Encrypt(credentials.username));
+    console.log(Secret.Decrypt(Secret.Encrypt(credentials.username)));
 
     return this.http.post(Api.API_URL + '/authenticate', data).map((response: any) => {
       const jwt = response['id_token'];

@@ -28,7 +28,7 @@ import { FileOpener } from '@ionic-native/file-opener';
 import { Diagnostic } from "@ionic-native/diagnostic";
 import { File } from "@ionic-native/file";
 import { FileTransfer } from "@ionic-native/file-transfer";
-
+import { Secret } from "../providers/secret";
 
 
 export function createTranslateLoader( http: HttpClient ) {
@@ -80,7 +80,8 @@ export function createTranslateLoader( http: HttpClient ) {
     Diagnostic,
     File,
     FileTransfer,
-    FileOpener
+    FileOpener,
+    Secret
   ]
 })
 export class AppModule {}
