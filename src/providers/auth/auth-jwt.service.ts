@@ -24,8 +24,11 @@ export class AuthServerProvider {
       password: Secret.Encrypt(credentials.password),
       rememberMe: credentials.rememberMe
     };
-    console.log(Secret.Encrypt(credentials.username));
-    console.log(Secret.Decrypt(Secret.Encrypt(credentials.username)));
+
+    //将用户登录信息本地存储
+    localStorage.setItem('username', data.username + '');
+    localStorage.setItem('password', data.password + '');
+    localStorage.setItem('rememberMe', data.rememberMe + '');
 
     return this.http.post(Api.API_URL + '/authenticate', data).map((response: any) => {
       const jwt = response['id_token'];

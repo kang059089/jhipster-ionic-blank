@@ -6,12 +6,21 @@ import { LoginPage } from "../pages/login/login";
 import { WelcomePage } from "../pages/welcome/welcome";
 import { Storage } from '@ionic/storage';
 import { NativeServiceProvider } from "../providers/native-service/native-service";
+import { Secret } from "../providers/secret";
+import { LoginServiceProvider } from "../providers/login-service/login-service";
+import { MainPage } from "../pages/main/main";
+import { VersionServiceProvider } from "../providers/version-service/version-service";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage: any;
+  account: { username: string, password: string, rememberMe: boolean } = {
+    username: '',
+    password: '',
+    rememberMe: true,
+  };
 
   constructor(
     private platform: Platform,
@@ -19,10 +28,36 @@ export class MyApp {
     private splashScreen: SplashScreen,
     private storage: Storage,
     private nativeService: NativeServiceProvider,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private loginService: LoginServiceProvider,
+    public versionService: VersionServiceProvider) {
     this.storage.get('firstIn').then((result) => {
+      console.log(result);
       if(result) {
-        this.rootPage = LoginPage;
+        //加载app的时候获取本地存储的用户信息并解密
+        if(localStorage.getItem('username') != null && localStorage.getItem('password') != null) {
+          this.account.username = Secret.Decrypt(localStorage.getItem('username'));
+          this.account.password = Secret.Decrypt(localStorage.getItem('password'));
+          let rememberMe = localStorage.getItem('rememberMe');
+          console.log(this.account);
+          if(rememberMe != 'false' || rememberMe != null) {
+            this.account.rememberMe = true;
+            this.loginService.login(this.account).then((response) => {
+              //初始化版本信息
+              this.versionService.init();
+              setTimeout(() => {
+                //检测app是否升级
+                this.versionService.assertUpgrade();
+              }, 5000);
+              //登录成功设置根页面为MainPage
+              this.rootPage = 'MainPage';
+            }, (err) => {
+              console.log(err);
+            });
+          }
+        } else {
+          this.rootPage = LoginPage;
+        }
       } else {
         this.storage.set('firstIn', true);
         this.rootPage = WelcomePage;
@@ -36,6 +71,8 @@ export class MyApp {
       splashScreen.hide();
       //检测网络
       this.assertNetwork();
+
+
 
     });
   }

@@ -23,7 +23,7 @@ export class LoginPage {
   account: { username: string, password: string, rememberMe: boolean } = {
     username: '',
     password: '',
-    rememberMe: false,
+    rememberMe: true,
   };
 
   // Our translated text strings

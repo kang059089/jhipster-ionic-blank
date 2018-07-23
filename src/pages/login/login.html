@@ -13,6 +13,14 @@
     <ion-col></ion-col>
   </ion-row>
 
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col>
+      <p style="text-align: center; margin: 0px;">my app</p>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
   <ion-row style="padding-top: 15%;">
     <form (ngSubmit)="login()">
       <ion-list no-lines>
@@ -27,13 +35,22 @@
           <ion-input type="password" [(ngModel)]="account.password" name="account.password"></ion-input>
         </ion-item>
 
-        <ion-row align-items-center class="login-rember">
-          <ion-col col-8>
-            <a class="forget-password" full (click)="forgetPassword()">忘记密码?</a>
+        <ion-row>
+          <ion-col>
+            <p style="text-align: left; margin: 0px; font-size: 12px; color: #f4f4f4;" (click)="forgetPassword()">忘记密码</p>
           </ion-col>
-          <ion-label>记住我</ion-label>
-          <ion-toggle [(ngModel)]="account.rememberMe" name="account.rememberMe"></ion-toggle>
+          <ion-col>
+            <p style="text-align: right; margin: 0px; font-size: 12px; color: #f4f4f4;" (click)="signup()">还没有账号？注册</p>
+          </ion-col>
         </ion-row>
+
+        <!--<ion-row align-items-center class="login-rember">-->
+          <!--<ion-col col-8>-->
+            <!--<a class="forget-password" full (click)="forgetPassword()">忘记密码?</a>-->
+          <!--</ion-col>-->
+          <!--<ion-label>记住我</ion-label>-->
+          <!--<ion-toggle [(ngModel)]="account.rememberMe" name="account.rememberMe"></ion-toggle>-->
+        <!--</ion-row>-->
 
       </ion-list>
     </form>
@@ -41,9 +58,6 @@
       <ion-row>
         <ion-col>
           <button ion-button color="primary" (click)="login()" full>登录</button>
-        </ion-col>
-        <ion-col>
-          <button ion-button color="danger" (click)="signup()" full>注册</button>
         </ion-col>
       </ion-row>
     </ion-grid>

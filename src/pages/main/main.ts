@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { LoginServiceProvider } from "../../providers/login-service/login-service";
+import { LoginPage } from "../login/login";
 
 /**
  * Generated class for the MainPage page.
@@ -15,11 +17,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MainPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  rootPage: any;
+
+  constructor(
+    public app: App,
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public loginService: LoginServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('主页面');
+  }
+
+  loginOut() {
+    this.loginService.logout();
+    localStorage.clear();
+    this.app.getRootNavs()[0].setRoot(LoginPage);
   }
 
 }
