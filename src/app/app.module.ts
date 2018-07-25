@@ -29,6 +29,9 @@ import { Diagnostic } from "@ionic-native/diagnostic";
 import { File } from "@ionic-native/file";
 import { FileTransfer } from "@ionic-native/file-transfer";
 import { Secret } from "../providers/secret";
+import { PureColorLoginPageModule } from "../pages/pure-color-login/pure-color-login.module";
+import { PureColorLoginPage } from "../pages/pure-color-login/pure-color-login";
+import { Toast } from "@ionic-native/toast";
 
 
 export function createTranslateLoader( http: HttpClient ) {
@@ -52,13 +55,15 @@ export function createTranslateLoader( http: HttpClient ) {
     }),
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    LoginPageModule
+    LoginPageModule,
+    PureColorLoginPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     WelcomePage,
-    LoginPage
+    LoginPage,
+    PureColorLoginPage
   ],
   providers: [
     Api,
@@ -81,7 +86,8 @@ export function createTranslateLoader( http: HttpClient ) {
     File,
     FileTransfer,
     FileOpener,
-    Secret
+    Secret,
+    Toast
   ]
 })
 export class AppModule {}

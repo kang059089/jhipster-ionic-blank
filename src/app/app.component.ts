@@ -10,6 +10,7 @@ import { Secret } from "../providers/secret";
 import { LoginServiceProvider } from "../providers/login-service/login-service";
 import { MainPage } from "../pages/main/main";
 import { VersionServiceProvider } from "../providers/version-service/version-service";
+import { PureColorLoginPage } from "../pages/pure-color-login/pure-color-login";
 
 @Component({
   templateUrl: 'app.html'
@@ -56,7 +57,10 @@ export class MyApp {
             });
           }
         } else {
-          this.rootPage = LoginPage;
+          //背景图片的登录页面
+          //this.rootPage = LoginPage;
+          //纯色背景的登录页面
+          this.rootPage = PureColorLoginPage;
         }
       } else {
         this.storage.set('firstIn', true);

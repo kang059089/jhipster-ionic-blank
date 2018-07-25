@@ -23,7 +23,10 @@ export class WelcomePage {
   }
 
   goToLogin() {
-    this.navCtrl.setRoot('LoginPage');
+    //背景图片的登录界面
+    //this.navCtrl.setRoot('LoginPage');
+    //纯色背景的登录界面
+    this.navCtrl.setRoot('PureColorLoginPage');
   }
 
 }

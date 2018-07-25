@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AlertController, Platform } from "ionic-angular";
+import { AlertController, Platform, ToastController } from "ionic-angular";
 import { Observable } from "rxjs/Observable";
 import { Network } from "@ionic-native/network";
 import { AppVersion } from '@ionic-native/app-version';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { Diagnostic } from "@ionic-native/diagnostic";
+import { Toast } from "@ionic-native/toast";
 
 /*
   Generated class for the NativeServiceProvider provider.
@@ -21,6 +22,8 @@ export class NativeServiceProvider {
     private appVersion: AppVersion,
     private inAppBrowser: InAppBrowser,
     private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
+    private toast: Toast,
     private diagnostic: Diagnostic
     ) {
     console.log('本地服务');
@@ -129,6 +132,24 @@ export class NativeServiceProvider {
       }
     };
   })();
+
+  /**
+   * 统一调用此方法显示提示信息
+   * @param message 信息内容
+   * @param duration 显示时长
+   */
+  showToast(message: string = '操作完成', duration: number = 2000): void {
+    if (this.isMobile()) {
+      this.toast.show(message, String(duration), 'center').subscribe();
+    } else {
+      this.toastCtrl.create({
+        message: message,
+        duration: duration,
+        position: 'middle',
+        showCloseButton: false
+      }).present();
+    }
+  };
 
   /**
    * 检测app是否有读取存储权限,如果没有权限则会请求权限

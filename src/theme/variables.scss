@@ -39,8 +39,15 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  register:   #da4f49,
+  themeStyle: #49afcd
 );
+
+//输入框输入具有焦点时是否显示焦点突出显示（此处设置为不突出显示）（全局设置）
+$text-input-md-show-focus-highlight: false;
+//输入框提示信息颜色（全局设置）
+$text-input-placeholder-color: #49afcd;
 
 
 // App iOS Variables

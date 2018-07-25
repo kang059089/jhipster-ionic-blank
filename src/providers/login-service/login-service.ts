@@ -16,7 +16,7 @@ export class LoginServiceProvider {
     private principal: Principal,
     private authServerProvider: AuthServerProvider,
     private translate: TranslateService) {
-    console.log('登录Service');
+    console.log('登录服务');
   }
 
   login(credentials, callback?) {
