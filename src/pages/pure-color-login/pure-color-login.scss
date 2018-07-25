@@ -1,0 +1,21 @@
+page-pure-color-login {
+  .logo {
+    width:150px;
+    height: 100px;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  .item-md ion-icon[item-left] + .item-inner, .item-md ion-icon[item-left] + .item-input, .item-md ion-icon[item-start] + .item-inner, .item-md ion-icon[item-start] + .item-input {
+    margin-left: 0px;
+  }
+
+  input::-webkit-input-placeholder {
+    font-size: 12px;
+  }
+}

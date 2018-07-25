@@ -1,0 +1,50 @@
+<!--
+  Generated template for the UserAgreementPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="themeStyle">
+    <ion-title style="font-size: 14px;">用户协议</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding style="background-color: #dedede;">
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col col-11>
+      <p style="text-align: center; margin: 0px; font-size: 25px;">{{userAgreement.title}}</p>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+  <!-->此行写入的是副标题1<-->
+  <ion-row style="padding-top: 5%;">
+    {{userAgreement.subtitle1}}
+  </ion-row>
+  <!-->此行写入的是副标题1内容1<-->
+  <ion-row>
+    {{userAgreement.st1content1}}
+  </ion-row>
+  <!-->此行写入的是副标题1内容2<-->
+  <ion-row>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{userAgreement.st1content2}}
+  </ion-row>
+
+  <!-->此行写入的是副标题2<-->
+  <ion-row style="padding-top: 2%;">
+    {{userAgreement.subtitle2}}
+  </ion-row>
+  <!-->此行写入的是副标题2内容1<-->
+  <ion-row>
+    {{userAgreement.st2content1}}
+  </ion-row>
+  <!-->此行写入的是副标题2内容2<-->
+  <ion-row>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{userAgreement.st2content2}}
+  </ion-row>
+</ion-content>

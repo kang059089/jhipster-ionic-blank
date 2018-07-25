@@ -1,0 +1,63 @@
+<ion-content padding style="background-color: #49afcd">
+  <ion-row style="padding-top: 20%;">
+    <ion-col></ion-col>
+    <ion-col class="logo">
+      <img style="width: 80px; height: 80px; border-radius: 50%;" src="./assets/imgs/logo.png">
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col col-8>
+      <p style="text-align: center; margin: 0px; color: #f4f4f4">My app based on jhipster</p>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+  <ion-row style="padding-top: 15%;">
+    <form (ngSubmit)="login()">
+      <ion-list no-lines>
+
+        <ion-item>
+          <ion-icon name="md-username-blue" item-start></ion-icon>
+          <ion-input type="string" placeholder="输入手机号码 / 账号 / 用户名" [(ngModel)]="account.username" name="account.username"></ion-input>
+        </ion-item>&nbsp;
+
+        <ion-item>
+          <ion-icon name="md-password-blue" item-start></ion-icon>
+          <ion-input type="password" placeholder="输入密码" [(ngModel)]="account.password" name="account.password"></ion-input>
+        </ion-item>
+
+        <ion-row>
+          <ion-col>
+            <p style="text-align: left; margin: 0px; font-size: 12px; color: #f4f4f4;" (click)="forgetPassword()">忘记密码</p>
+          </ion-col>
+          <ion-col>
+            <p style="text-align: right; margin: 0px; font-size: 12px; color: #f4f4f4;" (click)="register()">还没有账号？注册</p>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </form>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button color="primary" (click)="login()" round full>登录</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-row>
+
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col col-9>
+      <p style="color: #f4f4f4; font-size: 12px; text-align: center;">第三方登录</p>
+      <div style="text-align: center;">
+        <ion-icon name="md-wechat" (click)="wechatLogin()"></ion-icon>&nbsp;&nbsp;
+        <ion-icon name="md-qq" (click)="qqLogin()"></ion-icon>&nbsp;&nbsp;
+        <ion-icon name="md-sinaweibo" (click)="sinaweiboLogin()"></ion-icon>
+      </div>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+</ion-content>

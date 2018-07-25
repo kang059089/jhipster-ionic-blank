@@ -1,0 +1,55 @@
+<ion-content padding style="background-color: #49afcd">
+  <ion-icon name="md-return-register" item-start navPop></ion-icon>
+
+  <ion-row style="padding-top: 10%;">
+    <ion-col></ion-col>
+    <ion-col class="logo">
+      <img style="width: 80px; height: 80px; border-radius: 50%;" src="./assets/imgs/logo.png">
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col col-8>
+      <p style="text-align: center; margin: 0px; color: #f4f4f4">My app based on jhipster</p>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+
+  <ion-row style="padding-top: 15%;">
+    <form (ngSubmit)="doRegister()">
+      <ion-list no-lines>
+
+        <ion-item>
+          <ion-icon name="md-username-blue" item-start></ion-icon>
+          <ion-input type="string" placeholder="请输入手机号码 / 邮箱" [(ngModel)]="registerInfo.phoneOrEmail" name="registerInfo.phoneOrEmail"></ion-input>
+        </ion-item>&nbsp;
+
+        <ion-item>
+          <ion-icon name="md-password-blue" item-start></ion-icon>
+          <ion-input type="password" placeholder="输入6-18位数字或字母为密码" [(ngModel)]="registerInfo.password" name="registerInfo.password"></ion-input>
+        </ion-item>&nbsp;
+
+        <ion-item>
+          <ion-icon name="md-verificationcode-blue" item-start></ion-icon>
+          <ion-input type="number" placeholder="输入6位数字验证码"></ion-input>
+          <button item-right ion-button outline round color="themeStyle" [disabled]="!verifyCode.disable" (click)="sendVerificationCode()">{{verifyCode.verifyCodeTips}}</button>
+        </ion-item>
+
+        <ion-row style="padding-top: 2%;">
+          <ion-icon name="checkbox-no" item-start [ngClass]="{true:'checkbox-register', false:''}[registerInfo.checkboxStyle]" (click)="checkbox()"></ion-icon>&nbsp;
+          <ion-icon name="checkbox-ok" item-start [ngClass]="{true:'', false:'checkbox-register'}[registerInfo.checkboxStyle]" (click)="checkbox()"></ion-icon>&nbsp;
+          <p style="text-align: left; margin: 0px; font-size: 12px; color: #dedede;" (click)="userAgreement()">用户协议</p>
+        </ion-row>
+      </ion-list>
+    </form>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button color="register" (click)="doRegister()" round full>注册</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-row>
+</ion-content>
