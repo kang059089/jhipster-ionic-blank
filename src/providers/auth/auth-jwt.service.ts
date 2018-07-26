@@ -4,13 +4,15 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { Api } from '../api/api';
 import { HttpClient } from '@angular/common/http';
 import { Secret } from "../secret";
+import { AesServerProvider } from "../auth/aes.service"
 
 @Injectable()
 export class AuthServerProvider {
 
   constructor(private http: HttpClient,
-              private $localStorage: LocalStorageService,
-              private $sessionStorage: SessionStorageService) {
+    private $localStorage: LocalStorageService,
+    private $sessionStorage: SessionStorageService,
+    private aesServerProvider: AesServerProvider) {
   }
 
   getToken() {
@@ -19,15 +21,20 @@ export class AuthServerProvider {
 
   login(credentials): Observable<any> {
 
+    let useInfo = credentials.username + '####' + credentials.password;
+    useInfo = this.aesServerProvider.encrypt(useInfo, this.$localStorage.retrieve('aesKey'));
+    useInfo = useInfo + '####' + this.$localStorage.retrieve('clientId');
+
     const data = {
-      username: Secret.Encrypt(credentials.username),
-      password: Secret.Encrypt(credentials.password),
-      rememberMe: credentials.rememberMe
+      username: 'username',
+      password: 'password',
+      rememberMe: credentials.rememberMe,
+      useInfo: useInfo
     };
 
     //将用户登录信息本地存储
-    localStorage.setItem('username', data.username + '');
-    localStorage.setItem('password', data.password + '');
+    localStorage.setItem('username', Secret.Encrypt(credentials.username) + '');
+    localStorage.setItem('password', Secret.Encrypt(credentials.password) + '');
     localStorage.setItem('rememberMe', data.rememberMe + '');
 
     return this.http.post(Api.API_URL + '/authenticate', data).map((response: any) => {

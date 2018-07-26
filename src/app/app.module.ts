@@ -22,7 +22,7 @@ import { AuthInterceptor } from "../providers/auth/auth-interceptor";
 import { NativeServiceProvider } from '../providers/native-service/native-service';
 import { VersionServiceProvider } from '../providers/version-service/version-service';
 import { Network } from "@ionic-native/network";
-import { AppVersion } from "@ionic-native/app-version";
+import { AppVersion } from "@ionic-native/app-version";``
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { FileOpener } from '@ionic-native/file-opener';
 import { Diagnostic } from "@ionic-native/diagnostic";
@@ -32,7 +32,10 @@ import { Secret } from "../providers/secret";
 import { PureColorLoginPageModule } from "../pages/pure-color-login/pure-color-login.module";
 import { PureColorLoginPage } from "../pages/pure-color-login/pure-color-login";
 import { Toast } from "@ionic-native/toast";
-
+import { VerifyCodeServiceProvider } from '../providers/verify-code-service/verify-code-service';
+import { InitServiceProvider } from "../providers/auth/init.service";
+import { AesServerProvider } from "../providers/auth/aes.service";;
+import { RsaServerProvider } from "../providers/auth/rsa.service";;
 
 export function createTranslateLoader( http: HttpClient ) {
   return new TranslateHttpLoader( http, './assets/i18n/', '.json' );
@@ -87,7 +90,11 @@ export function createTranslateLoader( http: HttpClient ) {
     FileTransfer,
     FileOpener,
     Secret,
-    Toast
+    Toast,
+    VerifyCodeServiceProvider,
+    InitServiceProvider,
+    AesServerProvider,
+    RsaServerProvider
   ]
 })
 export class AppModule {}
