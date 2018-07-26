@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { NativeServiceProvider } from "../../providers/native-service/native-service";
+import { VerifyCodeServiceProvider } from "../../providers/verify-code-service/verify-code-service";
+import { LocalStorageService } from 'ngx-webstorage';
 
 /**
  * Generated class for the PureColorRegisterPage page.
@@ -35,7 +37,9 @@ export class PureColorRegisterPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
-    public nativeService: NativeServiceProvider) {
+    public nativeService: NativeServiceProvider,
+    public verifyCodeService: VerifyCodeServiceProvider,
+    public localStorageService: LocalStorageService) {
   }
 
   ionViewDidLoad() {
@@ -60,6 +64,12 @@ export class PureColorRegisterPage {
     //发送验证码成功后开始倒计时
     this.verifyCode.disable = false;
     this.settime();
+    //向后台发送生成验证码的请求
+    const clientId = this.localStorageService.retrieve('clientId');
+    this.verifyCodeService.sendVerificationCode(this.registerInfo.phoneOrEmail, 1, clientId).subscribe((res) => {
+      console.log('返回的验证码');
+      console.log(res);
+    });
   }
 
   /**

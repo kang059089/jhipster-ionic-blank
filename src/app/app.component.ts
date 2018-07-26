@@ -5,8 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from "../pages/login/login";
 import { WelcomePage } from "../pages/welcome/welcome";
 import { Storage } from '@ionic/storage';
-
-
 import { NativeServiceProvider } from "../providers/native-service/native-service";
 import { Secret } from "../providers/secret";
 import { LoginServiceProvider } from "../providers/login-service/login-service";
@@ -37,7 +35,7 @@ export class MyApp {
     public versionService: VersionServiceProvider,
     private initServiceProvider: InitServiceProvider) {
 
-  const that=this;
+    const that=this;
 
     initServiceProvider.init().then(function(clientId){
       that.storage.get('firstIn').then((result) => {
@@ -89,7 +87,6 @@ export class MyApp {
 
     });
   }
-
 
   /**
    * 检测网络连接情况

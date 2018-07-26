@@ -22,7 +22,7 @@ import { AuthInterceptor } from "../providers/auth/auth-interceptor";
 import { NativeServiceProvider } from '../providers/native-service/native-service';
 import { VersionServiceProvider } from '../providers/version-service/version-service';
 import { Network } from "@ionic-native/network";
-import { AppVersion } from "@ionic-native/app-version";``
+import { AppVersion } from "@ionic-native/app-version";
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { FileOpener } from '@ionic-native/file-opener';
 import { Diagnostic } from "@ionic-native/diagnostic";

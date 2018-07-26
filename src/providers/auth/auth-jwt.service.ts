@@ -37,6 +37,9 @@ export class AuthServerProvider {
     localStorage.setItem('password', Secret.Encrypt(credentials.password) + '');
     localStorage.setItem('rememberMe', data.rememberMe + '');
 
+
+
+
     return this.http.post(Api.API_URL + '/authenticate', data).map((response: any) => {
       const jwt = response['id_token'];
       if (jwt) {
