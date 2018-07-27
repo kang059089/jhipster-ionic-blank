@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginServiceProvider } from "../../providers/login-service/login-service";
 import { LoginPage } from "../login/login";
+import { PureColorLoginPage } from "../pure-color-login/pure-color-login";
 
 /**
  * Generated class for the MainPage page.
@@ -33,7 +34,7 @@ export class MainPage {
   loginOut() {
     this.loginService.logout();
     localStorage.clear();
-    this.app.getRootNavs()[0].setRoot(LoginPage);
+    this.app.getRootNavs()[0].setRoot(PureColorLoginPage);
   }
 
 }

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, ToastController} from 'ionic-angular';
-import {LoginServiceProvider} from "../../providers/login-service/login-service";
-import {TranslateService} from "@ngx-translate/core";
-import {VersionServiceProvider} from "../../providers/version-service/version-service";
+import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { TranslateService } from "@ngx-translate/core";
+
+import { LoginServiceProvider } from "../../providers/login-service/login-service";
+import { VersionServiceProvider } from "../../providers/version-service/version-service";
 
 /**
  * Generated class for the PureColorLoginPage page.
@@ -69,7 +70,7 @@ export class PureColorLoginPage {
   }
 
   /**
-   * 注册跳转到注册页面（待完成）
+   * 注册跳转到注册页面
    */
   register() {
     this.navCtrl.push('PureColorRegisterPage');
@@ -79,7 +80,7 @@ export class PureColorLoginPage {
    * 忘记密码跳转到找回密码页面（待完成）
    */
   forgetPassword() {
-
+    this.navCtrl.push('PureColorResetpasswordPage');
   }
 
   /**

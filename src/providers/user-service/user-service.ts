@@ -38,8 +38,17 @@ export class UserServiceProvider {
    * @param {UserModel} user
    * @returns {Observable<HttpResponse<User>>}
    */
-  registerUser(user: UserModel): Observable<HttpResponse<UserModel>>{
+  registerUser(user: UserModel): Observable<HttpResponse<UserModel>> {
     return this.http.post<UserModel>(Api.API_URL + '/register', user, {observe: 'response'});
+  }
+
+  /**
+   * 用户重置密码
+   * @param {UserModel} user
+   * @returns {Observable<HttpResponse<UserModel>>}
+   */
+  resetPassword(user: UserModel): Observable<HttpResponse<UserModel>> {
+    return this.http.post<UserModel>(Api.API_URL + '/resetPassword', user, {observe: 'response'});
   }
 
 }
