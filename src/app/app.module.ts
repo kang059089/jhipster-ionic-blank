@@ -35,7 +35,8 @@ import { Toast } from "@ionic-native/toast";
 import { VerifyCodeServiceProvider } from '../providers/verify-code-service/verify-code-service';
 import { InitServiceProvider } from "../providers/auth/init.service";
 import { AesServerProvider } from "../providers/auth/aes.service";;
-import { RsaServerProvider } from "../providers/auth/rsa.service";;
+import { RsaServerProvider } from "../providers/auth/rsa.service";
+import { UserServiceProvider } from '../providers/user-service/user-service';;
 
 export function createTranslateLoader( http: HttpClient ) {
   return new TranslateHttpLoader( http, './assets/i18n/', '.json' );
@@ -94,7 +95,8 @@ export function createTranslateLoader( http: HttpClient ) {
     VerifyCodeServiceProvider,
     InitServiceProvider,
     AesServerProvider,
-    RsaServerProvider
+    RsaServerProvider,
+    UserServiceProvider
   ]
 })
 export class AppModule {}
