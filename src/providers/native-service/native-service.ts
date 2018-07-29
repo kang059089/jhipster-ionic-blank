@@ -6,6 +6,8 @@ import { AppVersion } from '@ionic-native/app-version';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { Diagnostic } from "@ionic-native/diagnostic";
 import { Toast } from "@ionic-native/toast";
+import { StatusBar } from "@ionic-native/status-bar";
+import { SplashScreen } from "@ionic-native/splash-screen";
 
 /*
   Generated class for the NativeServiceProvider provider.
@@ -18,6 +20,8 @@ export class NativeServiceProvider {
 
   constructor(
     private platform: Platform,
+    private statusBar: StatusBar,
+    private splashScreen: SplashScreen,
     private network: Network,
     private appVersion: AppVersion,
     private inAppBrowser: InAppBrowser,
@@ -27,6 +31,26 @@ export class NativeServiceProvider {
     private diagnostic: Diagnostic
     ) {
     console.log('本地服务');
+  }
+
+  /**
+   * 状态栏
+   */
+  statusBarStyle(): void {
+    if (this.isMobile()) {
+      //状态栏是否覆盖主应用程序视图
+      this.statusBar.overlaysWebView(true);
+      this.statusBar.styleLightContent();
+      //状态栏颜色
+      this.statusBar.backgroundColorByHexString('#33000000');//3261b3
+    }
+  }
+
+  /**
+   * 隐藏启动页面
+   */
+  splashScreenHide(): void {
+    this.isMobile() && this.splashScreen.hide();
   }
 
   /**

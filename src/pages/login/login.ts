@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 import { LoginServiceProvider } from "../../providers/login-service/login-service";
 import { TranslateService } from '@ngx-translate/core';
-import {VersionServiceProvider} from "../../providers/version-service/version-service";
-import {Utils} from "../../providers/utils";
+import { VersionServiceProvider } from "../../providers/version-service/version-service";
+import { MainPage } from "../main/main";
 
 /**
  * Generated class for the LoginPage page.
@@ -56,7 +56,7 @@ export class LoginPage {
         //检测app是否升级
         this.versionService.assertUpgrade();
       }, 5000);
-      this.navCtrl.push('MainPage');
+      this.navCtrl.push(MainPage);
     }, (err) => {
       // Unable to log in
       this.account.password = '';

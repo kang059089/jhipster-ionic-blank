@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { LocalStorageService } from "ngx-webstorage";
-import { HttpResponse } from "@angular/common/http";
 
 import { UserModel } from "../../models/user";
 

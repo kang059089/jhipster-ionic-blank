@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { App, IonicPage, MenuController, NavController } from 'ionic-angular';
 import { LoginServiceProvider } from "../../providers/login-service/login-service";
-import { LoginPage } from "../login/login";
 import { PureColorLoginPage } from "../pure-color-login/pure-color-login";
 
 /**
@@ -18,13 +17,12 @@ import { PureColorLoginPage } from "../pure-color-login/pure-color-login";
 })
 export class MainPage {
 
-  rootPage: any;
-
   constructor(
     public app: App,
     public navCtrl: NavController,
-    public navParams: NavParams,
+    public menuCtrl: MenuController,
     public loginService: LoginServiceProvider) {
+    this.menuCtrl.enable(true, 'authenticated');
   }
 
   ionViewDidLoad() {

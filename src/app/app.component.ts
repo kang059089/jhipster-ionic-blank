@@ -1,8 +1,5 @@
-import { Component } from '@angular/core';
-import { Platform, ToastController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { LoginPage } from "../pages/login/login";
+import {Component, ViewChild} from '@angular/core';
+import {Nav, Platform, ToastController} from 'ionic-angular';
 import { WelcomePage } from "../pages/welcome/welcome";
 import { Storage } from '@ionic/storage';
 import { NativeServiceProvider } from "../providers/native-service/native-service";
@@ -12,52 +9,49 @@ import { MainPage } from "../pages/main/main";
 import { VersionServiceProvider } from "../providers/version-service/version-service";
 import { PureColorLoginPage } from "../pages/pure-color-login/pure-color-login";
 import { InitServiceProvider } from "../providers/auth/init.service"
+import { SetUpPage } from "../pages/set-up/set-up";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
+  @ViewChild(Nav) nav: Nav;
   rootPage: any;
   account: { username: string, password: string, rememberMe: boolean } = {
     username: '',
     password: '',
     rememberMe: true,
   };
+  pages: Array<{title: string, component: any, icon: string}>;
 
   constructor(
     private platform: Platform,
-    private statusBar: StatusBar,
-    private splashScreen: SplashScreen,
     private storage: Storage,
     private nativeService: NativeServiceProvider,
     private toastCtrl: ToastController,
     private loginService: LoginServiceProvider,
-    public versionService: VersionServiceProvider,
+    private versionService: VersionServiceProvider,
     private initServiceProvider: InitServiceProvider) {
 
-    const that=this;
-
-    initServiceProvider.init().then(function(clientId){
-      that.storage.get('firstIn').then((result) => {
-        console.log(result);
+    this.initServiceProvider.init().then((clientId) => {
+      this.storage.get('firstIn').then((result) => {
         if (result) {
           //加载app的时候获取本地存储的用户信息并解密
           if (localStorage.getItem('username') != null && localStorage.getItem('password') != null) {
-            that.account.username = Secret.Decrypt(localStorage.getItem('username'));
-            that.account.password = Secret.Decrypt(localStorage.getItem('password'));
+            this.account.username = Secret.Decrypt(localStorage.getItem('username'));
+            this.account.password = Secret.Decrypt(localStorage.getItem('password'));
             let rememberMe = localStorage.getItem('rememberMe');
-            console.log(that.account);
             if (rememberMe != 'false' || rememberMe != null) {
-              that.account.rememberMe = true;
-              that.loginService.login(that.account).then((response) => {
+              this.account.rememberMe = true;
+              this.loginService.login(this.account).then((response) => {
                 //初始化版本信息
-                that.versionService.init();
+                this.versionService.init();
                 setTimeout(() => {
                   //检测app是否升级
-                  that.versionService.assertUpgrade();
+                  this.versionService.assertUpgrade();
                 }, 5000);
                 //登录成功设置根页面为MainPage
-                that.rootPage = 'MainPage';
+                this.rootPage = MainPage;
               }, (err) => {
                 console.log(err);
               });
@@ -66,26 +60,32 @@ export class MyApp {
             //背景图片的登录页面
             //this.rootPage = LoginPage;
             //纯色背景的登录页面
-            that.rootPage = PureColorLoginPage;
+            this.rootPage = PureColorLoginPage;
           }
         } else {
-          that.storage.set('firstIn', true);
-          that.rootPage = WelcomePage;
+          this.storage.set('firstIn', true);
+          this.rootPage = WelcomePage;
         }
       });
     });
 
-    platform.ready().then(() => {
+    this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
+      //状态栏样式
+      this.nativeService.statusBarStyle();
+      //隐藏启动页
+      this.nativeService.splashScreenHide();
       //检测网络
       this.assertNetwork();
 
 
 
     });
+
+    this.pages = [
+      { title: '设置', component: SetUpPage, icon: 'md-setUp'}
+    ];
   }
 
   /**
@@ -99,6 +99,14 @@ export class MyApp {
         closeButtonText: '确定'
       }).present();
     }
+  }
+
+  /**
+   * 菜单中打开对应页面
+   * @param page
+   */
+  openPage(page) {
+    this.nav.push(page.component);
   }
 }
 

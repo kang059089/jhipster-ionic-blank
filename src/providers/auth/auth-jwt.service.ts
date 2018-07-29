@@ -9,21 +9,22 @@ import { AesServerProvider } from "../auth/aes.service"
 @Injectable()
 export class AuthServerProvider {
 
-  constructor(private http: HttpClient,
-    private $localStorage: LocalStorageService,
-    private $sessionStorage: SessionStorageService,
+  constructor(
+    private http: HttpClient,
+    private localStorage: LocalStorageService,
+    private sessionStorage: SessionStorageService,
     private aesServerProvider: AesServerProvider) {
   }
 
   getToken() {
-    return this.$localStorage.retrieve('authenticationToken') || this.$sessionStorage.retrieve('authenticationToken');
+    return this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('authenticationToken');
   }
 
   login(credentials): Observable<any> {
 
     let useInfo = credentials.username + '####' + credentials.password;
-    useInfo = this.aesServerProvider.encrypt(useInfo, this.$localStorage.retrieve('aesKey'));
-    useInfo = useInfo + '####' + this.$localStorage.retrieve('clientId');
+    useInfo = this.aesServerProvider.encrypt(useInfo, this.localStorage.retrieve('aesKey'));
+    useInfo = useInfo + '####' + this.localStorage.retrieve('clientId');
 
     const data = {
       username: 'username',
@@ -60,16 +61,16 @@ export class AuthServerProvider {
 
   storeAuthenticationToken(jwt, rememberMe) {
     if (rememberMe) {
-      this.$localStorage.store('authenticationToken', jwt);
+      this.localStorage.store('authenticationToken', jwt);
     } else {
-      this.$sessionStorage.store('authenticationToken', jwt);
+      this.sessionStorage.store('authenticationToken', jwt);
     }
   }
 
   logout(): Observable<any> {
     return new Observable((observer) => {
-      this.$localStorage.clear('authenticationToken');
-      this.$sessionStorage.clear('authenticationToken');
+      this.localStorage.clear('authenticationToken');
+      this.sessionStorage.clear('authenticationToken');
       observer.complete();
     });
   }

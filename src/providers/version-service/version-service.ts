@@ -328,7 +328,7 @@ export class VersionServiceProvider {
 
         const fileTransfer: FileTransferObject = this.fileTransfer.create();
         //.apk文件下载地址
-        let url = `${APP_VERSION_SERVE_URL}`;
+        //let url = `${APP_VERSION_SERVE_URL}`;
         //apk保存的目录
         const apk = this.file.externalRootDirectory + 'download/' + `android_${Utils.getSequence()}.apk`;
         //下载并安装apk

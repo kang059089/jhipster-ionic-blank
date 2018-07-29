@@ -10,7 +10,7 @@ import { RsaServerProvider } from '../auth/rsa.service';
 @Injectable()
 export class InitServiceProvider {
     constructor(
-        private $localStorage: LocalStorageService,
+        private localStorage: LocalStorageService,
         private aesServerProvider: AesServerProvider,
         private rsaServerProvider: RsaServerProvider,
         private http: HttpClient
@@ -19,17 +19,16 @@ export class InitServiceProvider {
     }
 
     init() {
-        const that = this;
-        var p = new Promise(function (resolve, reject) {
-            const aesKey = that.aesServerProvider.randomString(16);
-            that.$localStorage.store('aesKey', aesKey);
-            const aeskeyStr = that.rsaServerProvider.encrypt(aesKey);
-            that.http.post(Api.API_URL + '/init', aeskeyStr)
-                .subscribe(function (data) {
+        var p = new Promise((resolve, reject) => {
+            const aesKey = this.aesServerProvider.randomString(16);
+          this.localStorage.store('aesKey', aesKey);
+            const aeskeyStr = this.rsaServerProvider.encrypt(aesKey);
+          this.http.post(Api.API_URL + '/init', aeskeyStr)
+                .subscribe((data) => {
                     const uuidStr = data['clientId'];
-                    that.$localStorage.store('clientId', uuidStr);
+                  this.localStorage.store('clientId', uuidStr);
                     resolve(uuidStr);
-                }, function (err) {
+                }, (err) => {
                     console.log(err);
                 });
         });

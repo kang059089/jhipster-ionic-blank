@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { App, IonicPage, NavController, ToastController } from 'ionic-angular';
 import { TranslateService } from "@ngx-translate/core";
 
 import { LoginServiceProvider } from "../../providers/login-service/login-service";
 import { VersionServiceProvider } from "../../providers/version-service/version-service";
+import { MainPage } from "../main/main";
 
 /**
  * Generated class for the PureColorLoginPage page.
@@ -30,6 +31,7 @@ export class PureColorLoginPage {
   private loginErrorString: string;
 
   constructor(
+    public app: App,
     public navCtrl: NavController,
     public loginService: LoginServiceProvider,
     public toastCtrl: ToastController,
@@ -56,7 +58,9 @@ export class PureColorLoginPage {
         //检测app是否升级
         this.versionService.assertUpgrade();
       }, 5000);
-      this.navCtrl.push('MainPage');
+      //登录成功设置根页面，只做跳转的话，侧边栏不会显示。
+      let rootNav = this.app.getRootNavs()[0];
+      rootNav.setRoot(MainPage);
     }, (err) => {
       // Unable to log in
       this.account.password = '';
