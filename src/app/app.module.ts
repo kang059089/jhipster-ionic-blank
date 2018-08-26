@@ -16,8 +16,10 @@ import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { FileOpener } from '@ionic-native/file-opener';
 import { Diagnostic } from "@ionic-native/diagnostic";
 import { File } from "@ionic-native/file";
-import { FileTransfer } from "@ionic-native/file-transfer";
+import { FileTransfer, FileTransferObject } from "@ionic-native/file-transfer";
 import { Toast } from "@ionic-native/toast";
+import { Camera } from "@ionic-native/camera";
+import { ImagePicker } from "@ionic-native/image-picker";
 
 import { WelcomePage } from "../pages/welcome/welcome";
 import { LoginPage} from "../pages/login/login";
@@ -102,6 +104,7 @@ export function createTranslateLoader( http: HttpClient ) {
     Diagnostic,
     File,
     FileTransfer,
+    FileTransferObject,
     FileOpener,
     Secret,
     Toast,
@@ -109,7 +112,9 @@ export function createTranslateLoader( http: HttpClient ) {
     InitServiceProvider,
     AesServerProvider,
     RsaServerProvider,
-    UserServiceProvider
+    UserServiceProvider,
+    Camera,
+    ImagePicker
   ]
 })
 export class AppModule {}

@@ -7,6 +7,7 @@ export class UserModel {
   public lastName: string;
   public email: string;
   public phone: string;
+  public imageUrl: string;
   public activeted: boolean;
   public langKey: string;
   public authorities: any[];

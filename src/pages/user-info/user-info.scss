@@ -1,0 +1,19 @@
+page-user-info {
+  ion-title {
+    text-align: center;
+    font-size: smaller;
+  }
+
+  .toolbar-title-md {
+    padding-right: 56.5px;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+
+  ion-avatar img {
+    height: 8.4rem;
+    width: 8.4rem;
+    margin-bottom: 1.6rem;
+    border-radius: 100%;
+  }
+}

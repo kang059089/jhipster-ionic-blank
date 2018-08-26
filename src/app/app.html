@@ -5,14 +5,14 @@
     <div class="cover header-md mask" margin-bottom>
       <img src="assets/imgs/cover_menu_header.jpg" alt="menu-header">
       <div class="avatar">
-        <ion-row align-items-center>
+        <ion-row align-items-center menuClose (click)="openUserInfo()">
           <ion-col col-4>
-            <img src="assets/imgs/avatar.png">
+            <img [src]="avatarPath">
           </ion-col>
           <ion-col col-8>
             <div style="height: 6.4rem;">
-              <p>康 帅</p><br>
-              <p>506071077@qq.com</p>
+              <p>{{loginAc?.firstName}} {{loginAc?.lastName}}</p><br>
+              <p>{{loginAc?.email}}</p>
             </div>
           </ion-col>
         </ion-row>

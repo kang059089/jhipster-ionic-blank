@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, IonicPage, MenuController, NavController } from 'ionic-angular';
+import {App, Events, IonicPage, MenuController, NavController} from 'ionic-angular';
 import { LoginServiceProvider } from "../../providers/login-service/login-service";
 import { PureColorLoginPage } from "../pure-color-login/pure-color-login";
 
@@ -21,7 +21,9 @@ export class MainPage {
     public app: App,
     public navCtrl: NavController,
     public menuCtrl: MenuController,
-    public loginService: LoginServiceProvider) {
+    public loginService: LoginServiceProvider,
+    public events: Events) {
+    //左侧菜单栏
     this.menuCtrl.enable(true, 'authenticated');
   }
 

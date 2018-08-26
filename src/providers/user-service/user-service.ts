@@ -12,6 +12,9 @@ import { UserModel } from "../../models/user";
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
+
+export type EntityResponseType = HttpResponse<UserModel>;
+
 @Injectable()
 export class UserServiceProvider {
 
@@ -38,7 +41,7 @@ export class UserServiceProvider {
    * @param {UserModel} user
    * @returns {Observable<HttpResponse<User>>}
    */
-  registerUser(user: UserModel): Observable<HttpResponse<UserModel>> {
+  registerUser(user: UserModel): Observable<EntityResponseType> {
     return this.http.post<UserModel>(Api.API_URL + '/register', user, {observe: 'response'});
   }
 
@@ -47,8 +50,52 @@ export class UserServiceProvider {
    * @param {UserModel} user
    * @returns {Observable<HttpResponse<UserModel>>}
    */
-  resetPassword(user: UserModel): Observable<HttpResponse<UserModel>> {
+  resetPassword(user: UserModel): Observable<EntityResponseType> {
     return this.http.post<UserModel>(Api.API_URL + '/resetPassword', user, {observe: 'response'});
+  }
+
+  /**
+   * 通过用户id查询用户信息
+   * @param {string} userId 用户id
+   * @returns {Observable<HttpResponse<UserModel>>} 该用户信息
+   */
+  findUserById(userId: string): Observable<EntityResponseType> {
+    return this.http.get(`${this.resourceUrl}/userId/${userId}`, {observe: 'response'})
+      .map((res: EntityResponseType) => this.convertResponse(res));
+  }
+
+  /**
+   * 修改用户信息
+   * @param user
+   * @returns {Observable<Object>}
+   */
+  update(user: UserModel): Observable<EntityResponseType> {
+    const copy = this.convert(user);
+    return this.http.put<UserModel>(this.resourceUrl, copy, {observe: 'response'});
+  }
+
+  private convertResponse(res: EntityResponseType): EntityResponseType {
+    const body: UserModel = this.convertItemFromServer(res.body);
+    return res.clone({body});
+  }
+
+  private convertArrayResponse(res: HttpResponse<UserModel[]>): HttpResponse<UserModel[]> {
+    const jsonResponse: UserModel[] = res.body;
+    const body: UserModel[] = [];
+    for (let i = 0; i < jsonResponse.length; i++) {
+      body.push(this.convertItemFromServer(jsonResponse[i]));
+    }
+    return res.clone({body});
+  }
+
+  private convertItemFromServer(user: UserModel): UserModel {
+    const copy: UserModel = Object.assign(new UserModel(), user);
+    return copy;
+  }
+
+  private convert(user: UserModel): UserModel {
+    const copy: UserModel = Object.assign({}, user);
+    return copy;
   }
 
 }

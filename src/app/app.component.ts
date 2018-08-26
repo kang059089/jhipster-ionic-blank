@@ -1,5 +1,5 @@
-import {Component, ViewChild} from '@angular/core';
-import {Nav, Platform, ToastController} from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Events, Nav, Platform, ToastController } from 'ionic-angular';
 import { WelcomePage } from "../pages/welcome/welcome";
 import { Storage } from '@ionic/storage';
 import { NativeServiceProvider } from "../providers/native-service/native-service";
@@ -10,6 +10,7 @@ import { VersionServiceProvider } from "../providers/version-service/version-ser
 import { PureColorLoginPage } from "../pages/pure-color-login/pure-color-login";
 import { InitServiceProvider } from "../providers/auth/init.service"
 import { SetUpPage } from "../pages/set-up/set-up";
+import { DEFAULT_AVATAR } from "../providers/constants";
 
 @Component({
   templateUrl: 'app.html'
@@ -23,15 +24,32 @@ export class MyApp {
     rememberMe: true,
   };
   pages: Array<{title: string, component: any, icon: string}>;
+  //用来接收account帐户信息的属性
+  loginAc: any;
+  //头像路径
+  avatarPath: string;
 
   constructor(
     private platform: Platform,
     private storage: Storage,
     private nativeService: NativeServiceProvider,
     private toastCtrl: ToastController,
+    private events: Events,
     private loginService: LoginServiceProvider,
     private versionService: VersionServiceProvider,
     private initServiceProvider: InitServiceProvider) {
+
+    // 接收登录服务对应的事件，获取account帐户信息
+    events.subscribe('login-account', (account) =>{
+      //用户没有上传头像则显示默认，有则直接显示
+      if (account.imageUrl == '') {
+        this.avatarPath = DEFAULT_AVATAR;
+      } else {
+        this.avatarPath = account.imageUrl;
+      }
+      MyApp.prototype.loginAc = account;
+
+    });
 
     this.initServiceProvider.init().then((clientId) => {
       this.storage.get('firstIn').then((result) => {
@@ -102,11 +120,18 @@ export class MyApp {
   }
 
   /**
-   * 菜单中打开对应页面
+   * 点击菜单侧边栏中的按钮打开对应页面
    * @param page
    */
   openPage(page) {
     this.nav.push(page.component);
+  }
+
+  /**
+   * 点击菜单侧边栏中的头像、用户信息等打开编辑用户信息页面
+   */
+  openUserInfo() {
+    this.nav.push('UserInfoPage');
   }
 }
 

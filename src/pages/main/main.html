@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar style="opacity: 0.8" no-border-bottom color="themeStyle">
     <button ion-button menuToggle icon-only>
       <ion-icon name='menu'></ion-icon>
     </button>
@@ -16,6 +16,6 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding fullscreen>
   <button ion-button color="primary" (click)="loginOut()" full>退出</button>
 </ion-content>

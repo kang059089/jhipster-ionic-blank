@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, IonicPage, NavController, ToastController } from 'ionic-angular';
+import { App, Events, IonicPage, NavController, ToastController } from 'ionic-angular';
 import { TranslateService } from "@ngx-translate/core";
 
 import { LoginServiceProvider } from "../../providers/login-service/login-service";
@@ -27,12 +27,16 @@ export class PureColorLoginPage {
     rememberMe: true
   };
 
+  //用来接收account帐户信息的属性
+  loginAc: any;
+
   // Our translated text strings
   private loginErrorString: string;
 
   constructor(
     public app: App,
     public navCtrl: NavController,
+    public events: Events,
     public loginService: LoginServiceProvider,
     public toastCtrl: ToastController,
     public translateService: TranslateService,
@@ -40,7 +44,14 @@ export class PureColorLoginPage {
 
     this.translateService.get('LOGIN_ERROR').subscribe((value) => {
       this.loginErrorString = value;
-    })
+    });
+
+    // 接收登录服务对应的事件，获取account帐户信息
+    events.subscribe('login-account', (account) =>{
+      //用户没有上传头像则显示默认，有则直接显示
+      account.imageUrl == '' ? account.imageUrl = 'assets/imgs/avatar.png' : account.imageUrl;
+      PureColorLoginPage.prototype.loginAc = account;
+    });
   }
 
   ionViewDidLoad() {
