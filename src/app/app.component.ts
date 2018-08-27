@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Events, Nav, Platform, ToastController } from 'ionic-angular';
 import { WelcomePage } from "../pages/welcome/welcome";
 import { Storage } from '@ionic/storage';
@@ -26,8 +26,6 @@ export class MyApp {
   pages: Array<{title: string, component: any, icon: string}>;
   //用来接收account帐户信息的属性
   loginAc: any;
-  //头像路径
-  avatarPath: string;
 
   constructor(
     private platform: Platform,
@@ -35,7 +33,6 @@ export class MyApp {
     private nativeService: NativeServiceProvider,
     private toastCtrl: ToastController,
     private events: Events,
-    public cd: ChangeDetectorRef,
     private loginService: LoginServiceProvider,
     private versionService: VersionServiceProvider,
     private initServiceProvider: InitServiceProvider) {
@@ -44,14 +41,10 @@ export class MyApp {
     events.subscribe('login-account', (account) =>{
       //用户没有上传头像则显示默认，有则直接显示
       if (account.imageUrl == '') {
-        this.avatarPath = DEFAULT_AVATAR;
+        account.imageUrl = DEFAULT_AVATAR;
       } else {
-        this.avatarPath = account.imageUrl;
-        this.cd.detectChanges();
-
+        MyApp.prototype.loginAc = account;
       }
-      MyApp.prototype.loginAc = account;
-
     });
 
     this.initServiceProvider.init().then((clientId) => {
