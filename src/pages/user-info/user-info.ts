@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component} from '@angular/core';
-import { ActionSheetController, IonicPage, NavController, ViewController } from 'ionic-angular';
+import {ActionSheetController, Events, IonicPage, NavController, ViewController} from 'ionic-angular';
 import { UserModel } from "../../models/user";
 import { Secret } from "../../providers/secret";
 import { UserServiceProvider } from "../../providers/user-service/user-service";
@@ -34,6 +34,7 @@ export class UserInfoPage {
     public navCtrl: NavController,
     public userService: UserServiceProvider,
     public cd: ChangeDetectorRef,
+    public events: Events,
     public actionSheetCtrl: ActionSheetController,
     public nativeService: NativeServiceProvider,
     public viewCtrl: ViewController,
@@ -171,6 +172,8 @@ export class UserInfoPage {
         this.cd.detectChanges();
         this.nativeService.hideLoading();
         this.viewCtrl.dismiss();
+        //编辑用户信息后发布事件，让app.component.ts中接收编辑后的信息
+        this.events.publish('login-account', res.body);
       }
     });
   }

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import {ChangeDetectorRef, Component, ViewChild} from '@angular/core';
 import { Events, Nav, Platform, ToastController } from 'ionic-angular';
 import { WelcomePage } from "../pages/welcome/welcome";
 import { Storage } from '@ionic/storage';
@@ -35,6 +35,7 @@ export class MyApp {
     private nativeService: NativeServiceProvider,
     private toastCtrl: ToastController,
     private events: Events,
+    public cd: ChangeDetectorRef,
     private loginService: LoginServiceProvider,
     private versionService: VersionServiceProvider,
     private initServiceProvider: InitServiceProvider) {
@@ -46,6 +47,8 @@ export class MyApp {
         this.avatarPath = DEFAULT_AVATAR;
       } else {
         this.avatarPath = account.imageUrl;
+        this.cd.detectChanges();
+
       }
       MyApp.prototype.loginAc = account;
 
